@@ -1,9 +1,8 @@
-# 역순 연결 리스트
-def reverse_linked_list(head):
-    def reverse(node, prev):
-        if not node:
-            return prev
-        next, node.next = node.next, prev
-        return reverse(next, node)
+def reverse_linked_list(head: LinkNone) -> LinkNode:
+    node, prev = head, None
 
-    return reverse(head)
+    while node:
+        next, node.next = node.next, prev
+        node, prev = next, node
+
+    return prev
