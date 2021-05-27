@@ -13,4 +13,4 @@ def combine(self, n: int, k: int) -> List[List[int]]:
             elements.pop()
     
     dfs([], 1, k)
-    return results
+    return result
