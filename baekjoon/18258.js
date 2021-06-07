@@ -1,4 +1,4 @@
-class Stack {
+class Queue {
     constructor() {
       this.storage = [];
       this.length = 0;
@@ -8,7 +8,9 @@ class Stack {
     }
   
     pop() {
-      let removed = this.storage[--this.length];
+      let removed = this.storage[0];
+      this.storage = this.storage.slice(1);
+      this.length--;
       return removed;
     }
   
@@ -20,8 +22,12 @@ class Stack {
       return (this.length ? 0 : 1);
     }
 
-    top() {
-      return (this.length === 0 ? -1 : this.storage[this.length]);
+    front() {
+      return (this.length ? this.storage[0] : -1);
+    }
+
+    back() {
+      return (this.length ? this.storage[this.length - 1] : -1);
     }
 }
 
@@ -33,7 +39,8 @@ const rl = readline.createInterface({
 });
 
 let input = [];
-const stack = new Stack();
+
+const queue = new Queue()
 
 rl.on('line', function(line) {
   input.push(line);
@@ -51,8 +58,10 @@ rl.on('line', function(line) {
       log += stack.size() + '\n';
     else if (command[0] === 'empty')
       log += stack.empty() + '\n';
-    else if (command[0] === 'top')
-      log += stack.top() + '\n';
+    else if (command[0] === 'front')
+      log += stack.front() + '\n';
+    else if (command[0] === 'back')
+      log += stack.back() + '\n';
     return log;
   }, '')
   console.log(result);
