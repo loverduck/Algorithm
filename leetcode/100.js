@@ -11,5 +11,5 @@ var isSameTree = function(p, q) {
   let isSameRight = isSameTree(p.right, q.right);
       
   return isSameLeft && isSameRight;
-  };
+};
   
