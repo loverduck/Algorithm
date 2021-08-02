@@ -1,5 +1,5 @@
 const largestRectangularArea = function (histogram) {
-    // TODO: 여기에 코드를 작성합니다.
+  // TODO: 여기에 코드를 작성합니다.
   const createMinTree = (arr, ts, te) => {
     if (ts === te) {
       return { index: ts, value: arr[ts] };
@@ -30,7 +30,7 @@ const largestRectangularArea = function (histogram) {
     }
 
     const mid = parseInt((ts + te) / 2);
-    let leftIdx = findMin(ts, mid, rs, re, tree.left) 
+    let leftIdx = findMin(ts, mid, rs, re, tree.left)
     let rightIdx = findMin(mid + 1, te, rs, re, tree.right)
     return histogram[leftIdx] < histogram[rightIdx] ? leftIdx : rightIdx;
   };
