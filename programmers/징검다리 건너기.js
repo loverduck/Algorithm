@@ -9,9 +9,9 @@ function solution(stones, k) {
               maxDist = Math.max(maxDist, dist);
               dist = 1;
               stones[i]--;
-          } else {
-              dist++;
+              continue;
           }
+          dist++;
       }
   }
   
