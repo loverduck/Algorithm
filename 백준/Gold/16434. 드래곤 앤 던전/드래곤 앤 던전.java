@@ -12,39 +12,27 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         long atk = Long.parseLong(st.nextToken());
 
+        long maxHp = 0;
+        long curHp = 0;
+
         rooms = new long[n][3];
 
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < 3; j++) {
-                rooms[i][j] = Long.parseLong(st.nextToken());
-            }
-        }
 
-        long left = 0;
-        long right = ((long)2 << 62) - 1;
-        while(left <= right) {
-            long mid = (left + right) / 2;
-            long satk = atk;
-            long hp = mid;
-            boolean alive = true;
-            for(int i=0; i<n; i++) {
-                if(rooms[i][0] == 1) {
-                    if(rooms[i][2] % satk == 0) hp -= ((rooms[i][2] / satk) - 1) * rooms[i][1];
-                    else hp -= (rooms[i][2] / satk) * rooms[i][1];
-                    if(hp <= 0) {
-                        alive = false;
-                        break;
-                    }
-                } else {
-                    hp += rooms[i][2];
-                    hp = hp > mid ? mid : hp;
-                    satk += rooms[i][1];
-                }
+            int t = Integer.parseInt(st.nextToken());
+            int attack = Integer.parseInt(st.nextToken());
+            int hp = Integer.parseInt(st.nextToken());
+
+            if (t == 1) {
+                long turn = hp % atk == 0 ? hp / atk - 1 : hp / atk;
+                curHp += attack * turn;
+                maxHp = Math.max(maxHp, curHp);
+            } else {
+                atk += attack;
+                curHp = Math.max(curHp - hp, 0);
             }
-            if(!alive) left = mid + 1;
-            else right = mid - 1;
         }
-        System.out.println(left);
+        System.out.println(maxHp + 1);
     }
 }
