@@ -1,0 +1,6 @@
+-- 코드를 작성해주세요
+SELECT ROUND(AVG(total.LENGTH), 2) as AVERAGE_LENGTH
+FROM (
+    SELECT IFNULL(LENGTH, 10) as LENGTH
+    FROM FISH_INFO
+) as total;
