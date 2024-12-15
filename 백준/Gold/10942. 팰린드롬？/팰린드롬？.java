@@ -1,55 +1,49 @@
+import java.util.*;
 import java.io.*;
-import java.util.StringTokenizer;
+
 
 public class Main {
 
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static StringTokenizer st;
-    static StringBuilder out = new StringBuilder();
+    public static int n, m;
+    public static int[] nums;
+    public static int[][] dp;
 
-    static int n;
-    static int[] arr;
-    static int[][][] dp;
 
     public static void main(String[] args) throws IOException {
-        int n = Integer.parseInt(br.readLine());
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder out = new StringBuilder();
 
-        arr = new int[n + 1];
+        n = Integer.parseInt(br.readLine());
+        nums = new int[n + 1];
+        dp = new int[n + 1][n + 1];
 
-        st = new StringTokenizer(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 1; i <= n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            Arrays.fill(dp[i - 1], -1);
+            nums[i] = Integer.parseInt(st.nextToken());
+            dp[i][i] = 1;
         }
 
-        int m = Integer.parseInt(br.readLine());
+        m = Integer.parseInt(br.readLine());
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
 
-            if (s == e) {
-                out.append(1).append("\n");
-                continue;
-            }
-
-            boolean flag = true;
-            while (s <= e) {
-                if (arr[s] != arr[e]) {
-                    flag = false;
-                    break;
-                }
-                s++;
-                e--;
-            }
-
-            if (flag) {
-                out.append(1).append("\n");
-            } else {
-                out.append(0).append("\n");
-            }
-
+            out.append(palindrome(s, e)).append("\n");
         }
+
         System.out.println(out);
+    }
+
+    public static int palindrome(int s, int e) {
+        if(dp[s][e] != -1) return dp[s][e];
+
+        if(nums[s] != nums[e]) return dp[s][e] = 0;
+
+        if(e - s <= 2) return dp[s][e] = (nums[e] == nums[s]) ? 1 : 0;
+
+        return dp[s][e] = palindrome(s + 1, e - 1);
     }
 
 }
